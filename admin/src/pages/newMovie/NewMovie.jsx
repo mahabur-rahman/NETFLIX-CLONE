@@ -8,6 +8,7 @@ export default function NewMovie() {
   const [imgSm, setImgSm] = useState(null);
   const [trailer, setTrailer] = useState(null);
   const [video, setVideo] = useState(null);
+  const [uploaded, setUploaded] = useState(0);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -118,7 +119,11 @@ export default function NewMovie() {
           />
         </div>
 
-        <button className="addProductButton">Create</button>
+        {uploaded === 5 ? (
+          <button className="addProductButton">Create</button>
+        ) : (
+          <button className="addProductButton">Upload</button>
+        )}
       </form>
     </div>
   );
