@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "./newMovie.css";
+import storage from "../../firebase";
 
 export default function NewMovie() {
-  const [movie, setMovie] = useState({});
+  const [movie, setMovie] = useState(null);
   const [img, setImg] = useState(null);
-  const [imgTileImg, setTitleImg] = useState(null);
+  const [imgTitle, setImgTitle] = useState(null);
   const [imgSm, setImgSm] = useState(null);
   const [trailer, setTrailer] = useState(null);
   const [video, setVideo] = useState(null);
@@ -15,7 +16,48 @@ export default function NewMovie() {
     setMovie({ ...movie, [e.target.name]: value });
   };
 
-  console.log(img);
+  const upload = (items) => {
+    items.forEach((item) => {
+      const fileName = new Date().getTime() + item.label + item.file.name;
+      const uploadTask = storage.ref(`/items/${fileName}`).put(item.file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+            setMovie((prev) => {
+              return { ...prev, [item.label]: url };
+            });
+            setUploaded((prev) => prev + 1);
+          });
+        }
+      );
+    });
+  };
+
+  console.log(movie);
+
+  const handleUpload = (e) => {
+    e.preventDefault();
+    upload([
+      { file: img, label: "img" },
+      { file: imgTitle, label: "imgTitle" },
+      { file: imgSm, label: "imgSm" },
+      { file: trailer, label: "trailer" },
+      { file: video, label: "video" },
+    ]);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div className="newProduct">
@@ -36,7 +78,7 @@ export default function NewMovie() {
             type="file"
             id="imgTitle"
             name="imgTitle"
-            onChange={(e) => setTitleImg(e.target.files[0])}
+            onChange={(e) => setImgTitle(e.target.files[0])}
           />
         </div>
         <div className="addProductItem">
@@ -76,16 +118,23 @@ export default function NewMovie() {
           />
         </div>
         <div className="addProductItem">
+          <label>Genre</label>
+          <input
+            type="text"
+            placeholder="Genre"
+            name="genre"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="addProductItem">
           <label>Duration</label>
           <input
             type="text"
-            placeholder="
-          Duration"
+            placeholder="Duration"
             name="duration"
             onChange={handleChange}
           />
         </div>
-
         <div className="addProductItem">
           <label>Limit</label>
           <input
@@ -118,11 +167,14 @@ export default function NewMovie() {
             onChange={(e) => setVideo(e.target.files[0])}
           />
         </div>
-
         {uploaded === 5 ? (
-          <button className="addProductButton">Create</button>
+          <button className="addProductButton" onClick={handleSubmit}>
+            Create
+          </button>
         ) : (
-          <button className="addProductButton">Upload</button>
+          <button className="addProductButton" onClick={handleUpload}>
+            Upload
+          </button>
         )}
       </form>
     </div>
