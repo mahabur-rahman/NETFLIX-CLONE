@@ -11,8 +11,8 @@ import {
 import UserList from "./pages/userList/UserList";
 import User from "./pages/user/User";
 import NewUser from "./pages/newUser/NewUser";
-import ProductList from "./pages/productList/ProductList";
-import Product from "./pages/product/Product";
+import MovieList from "./pages/movieList/MovieList";
+import Movie from "./pages/movie/Movie";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Login from "./pages/login/Login";
 import { useContext } from "react";
@@ -49,10 +49,10 @@ function App() {
                 <NewUser />
               </Route>
               <Route path="/movies">
-                <ProductList />
+                <MovieList />
               </Route>
               <Route path="/product/:productId">
-                <Product />
+                <Movie />
               </Route>
               <Route path="/newproduct">
                 <NewProduct />
