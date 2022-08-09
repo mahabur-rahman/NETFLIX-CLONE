@@ -13,7 +13,7 @@ import User from "./pages/user/User";
 import NewUser from "./pages/newUser/NewUser";
 import MovieList from "./pages/movieList/MovieList";
 import Movie from "./pages/movie/Movie";
-import NewProduct from "./pages/newProduct/NewProduct";
+import NewMovie from "./pages/newMovie/NewMovie";
 import Login from "./pages/login/Login";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext/AuthContext";
@@ -54,8 +54,8 @@ function App() {
               <Route path="/product/:productId">
                 <Movie />
               </Route>
-              <Route path="/newproduct">
-                <NewProduct />
+              <Route path="/new-movie">
+                <NewMovie />
               </Route>
             </Switch>
           </div>
