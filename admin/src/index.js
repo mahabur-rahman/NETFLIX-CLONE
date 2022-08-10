@@ -3,11 +3,14 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { AuthContextProvider } from "./context/authContext/AuthContext";
 import { MovieContextProvider } from "./context/movieContext/MovieContext";
+import { ListContextProvider } from "./context/ListOfListContext/ListOfListContext";
 
 ReactDOM.render(
   <AuthContextProvider>
     <MovieContextProvider>
-      <App />
+      <ListContextProvider>
+        <App />
+      </ListContextProvider>
     </MovieContextProvider>
   </AuthContextProvider>,
   document.getElementById("root")

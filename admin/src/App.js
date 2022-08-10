@@ -17,6 +17,7 @@ import NewMovie from "./pages/newMovie/NewMovie";
 import Login from "./pages/login/Login";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext/AuthContext";
+import ListOfList from "./pages/ListOfList/ListOfList";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -56,6 +57,10 @@ function App() {
               </Route>
               <Route path="/new-movie">
                 <NewMovie />
+              </Route>
+
+              <Route path="/lists">
+                <ListOfList />
               </Route>
             </Switch>
           </div>
