@@ -1,3 +1,5 @@
+import React, { useContext } from "react";
+
 import Home from "./pages/Home/Home";
 import "./app.scss";
 import {
@@ -9,9 +11,10 @@ import {
 import Watch from "./pages/Watch/Watch";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
+import { AuthContext } from "./authContext/AuthContext";
 
 const App = () => {
-  const user = true;
+  const { user } = useContext(AuthContext);
 
   return (
     <Router>

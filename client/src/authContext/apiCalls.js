@@ -7,9 +7,8 @@ export const login = async (user, dispatch) => {
   try {
     const res = await axios.post(`/auth/login`, user);
 
-    // console.log(res.data);
-    // dispatch(loginSuccess(res.data));
-    res.data.isAdmin && dispatch(loginSuccess(res.data));
+    console.log(res.data);
+    dispatch(loginSuccess(res.data));
   } catch (err) {
     dispatch(loginFailure());
   }
