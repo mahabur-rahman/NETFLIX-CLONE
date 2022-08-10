@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./newMovie.css";
 import storage from "../../firebase";
+import { createMovie } from "../../context/movieContext/apiCalls";
+import { MovieContext } from "../../context/movieContext/MovieContext";
 
 export default function NewMovie() {
   const [movie, setMovie] = useState(null);
@@ -10,6 +12,8 @@ export default function NewMovie() {
   const [trailer, setTrailer] = useState(null);
   const [video, setVideo] = useState(null);
   const [uploaded, setUploaded] = useState(0);
+
+  const { dispatch } = useContext(MovieContext);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -42,8 +46,6 @@ export default function NewMovie() {
     });
   };
 
-  console.log(movie);
-
   const handleUpload = (e) => {
     e.preventDefault();
     upload([
@@ -57,6 +59,8 @@ export default function NewMovie() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // create movie api call
+    createMovie(movie, dispatch);
   };
 
   return (
@@ -117,15 +121,7 @@ export default function NewMovie() {
             onChange={handleChange}
           />
         </div>
-        <div className="addProductItem">
-          <label>Genre</label>
-          <input
-            type="text"
-            placeholder="Genre"
-            name="genre"
-            onChange={handleChange}
-          />
-        </div>
+
         <div className="addProductItem">
           <label>Duration</label>
           <input
