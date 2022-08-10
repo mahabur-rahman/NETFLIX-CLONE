@@ -1,5 +1,8 @@
 import axios from "axios";
 import {
+  createListFailure,
+  createListStart,
+  createListSuccess,
   deleteListFailure,
   deleteListStart,
   getListsFailure,
@@ -20,6 +23,25 @@ export const getLists = async (dispatch) => {
     dispatch(getListsSuccess(res.data));
   } catch (err) {
     dispatch(getListsFailure());
+  }
+};
+
+// CREATE MOVIE ##############
+
+export const createList = async (list, dispatch) => {
+  dispatch(createListStart());
+
+  try {
+    const res = await axios.post("/lists", list, {
+      headers: {
+        token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+      },
+    });
+
+    dispatch(createListSuccess(res.data));
+    console.log(res.data);
+  } catch (err) {
+    dispatch(createListFailure());
   }
 };
 
