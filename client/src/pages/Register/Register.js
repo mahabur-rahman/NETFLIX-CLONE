@@ -5,16 +5,16 @@ import axios from "axios";
 
 export default function Register() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const history = useHistory();
 
   console.log(email, password, username);
 
   const emailRef = useRef();
-  const passwordRef = useRef();
   const usernameRef = useRef();
+  const passwordRef = useRef();
 
   const handleStart = () => {
     setEmail(emailRef.current.value);
