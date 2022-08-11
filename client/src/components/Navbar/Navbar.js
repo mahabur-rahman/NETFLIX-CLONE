@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 // style
 import "./navbar.scss";
 import { ArrowDropDown, Notifications, Search } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import { logout } from "../../authContext/AuthActions";
+import { AuthContext } from "../../authContext/AuthContext";
 
 const Navbar = () => {
+  const { dispatch, user } = useContext(AuthContext);
+
+  console.log(user);
+
   const [isScrolled, setIsScrolled] = useState(false);
 
   window.onscroll = () => {
@@ -17,10 +23,6 @@ const Navbar = () => {
       <div className={isScrolled ? "navbar scrolled" : "navbar"}>
         <div className="container">
           <div className="left">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
-              alt=""
-            />
             <Link to="/">
               <span>Homepage</span>
             </Link>
@@ -40,10 +42,17 @@ const Navbar = () => {
               <Notifications className="icon" />
 
               <div className="profile">
+                <img
+                  src={
+                    user.profilePic ||
+                    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+                  }
+                  alt=""
+                />
                 <ArrowDropDown className="icon" />
                 <div className="options">
                   <span>Settings</span>
-                  <span>Logout</span>
+                  <span onClick={() => dispatch(logout())}>Logout</span>
                 </div>
               </div>
             </div>

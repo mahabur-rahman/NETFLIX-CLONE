@@ -13,6 +13,6 @@ export const loginFailure = () => ({
 
 // logout
 
-export const loginOut = () => ({
+export const logout = () => ({
   type: "LOGOUT",
 });
