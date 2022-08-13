@@ -1,1 +1,5 @@
 YT_LINK : https://youtu.be/7il2CrBA5VY
+
+
+api package.json file : 
+"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
