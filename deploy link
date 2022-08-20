@@ -1,5 +1,13 @@
 YT_LINK : https://youtu.be/7il2CrBA5VY
 
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/build"));
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+  });
+}
+
 api package.json file : 
 "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
